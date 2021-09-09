@@ -1,0 +1,38 @@
+<p>Olá {{ user.name }},</p>
+
+<p>Confirmação de compra número: <strong>{{ order.id }}</strong></p>
+
+<table class="table table-striped">
+  <tbody>
+    <thead>
+      <tr>
+        <th scope="col">Produto</th>
+        <th scope="col">EAN</th>
+        <th scope="col">Quantidade</th>
+        <th scope="col">Valor unidade</th>
+        <th scope="col">Loja</th>
+      </tr>
+    </thead>
+    {% for order_item in order.order_items %}
+    <tr
+      style="cursor: pointer"
+      onclick="window.open('{{ order_item.item.url }}', '_blank');"
+    >
+      <td>
+        <a href="{{ order_item.item.url }}">{{ order_item.item.name }}</a>
+      </td>
+      <td>{{ order_item.item.ean }}</td>
+      <td>{{ order_item.quantity }}</td>
+      <td>R$ {{ order_item.unit_price }}</td>
+      <td>{{ order_item.item.store.name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p>Total: R$ {{ order.total }}</p>
+
+<br /><br />
+
+<p>Abraços,</p>
+<p>Time BuscaMed.</p>

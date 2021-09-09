@@ -1,0 +1,10 @@
+Olá {{ user.name }}
+
+Para confirmar seu email clique no link abaixo:
+
+{{ url_for('auth.email_confirmation', token=token, _external=True) }}
+
+Se você não criou uma conta no BuscaMed, ignore essa mensagem.
+
+Abraços,
+Time BuscaMed.

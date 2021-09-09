@@ -1,0 +1,17 @@
+Olá {{ user.name }},
+
+Confirmação de compra número: {{ order.id }}
+
+{% for order_item in order.order_items %}
+  {{ order_item.item.url }}
+  {{ order_item.item.name }}
+  {{ order_item.item.ean }}
+  {{ order_item.quantity }}
+  R$ {{ order_item.unit_price }}
+  {{ order_item.item.store.name }}
+{% endfor %}
+
+Total: R$ {{ order.total }}
+
+Abraços,
+Time BuscaMed.

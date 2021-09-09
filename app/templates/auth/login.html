@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='auth/signin.css') }}" rel="stylesheet" />
+{% endblock styles %}
+
+{% block content %}
+<div class="img-bg">
+
+  <div class="container my-2">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+
+  <div class="container">
+    <div class="text-center">
+      <form class="form-signin form-container" method="POST" action="{{ url_for('auth.login') }}">
+        {{ form.hidden_tag() }}
+        <img
+          class="mt-4 mb-5"
+          src="{{ url_for('static', filename='logo/logo.png') }}"
+          alt=""
+          width="250"
+        />
+
+        <label for="inputEmail" class="sr-only">{{ form.email.label }}</label>
+        {{ form.email(class_='form-control', placeholder='Email', autofocus=True, required=True) }}
+        <br />
+        <label for="inputPassword" class="sr-only">{{ form.password.label }}</label>
+        {{ form.password(class_='form-control', placeholder='Senha', required=True) }}
+
+        <div class="checkbox mb-3">
+          {{ form.remember_me(class_="form-check-input", value="remember-me") }} {{
+          form.remember_me.label(class_="color-light form-check-label")}}
+        </div>
+
+        {{ form.submit(class_="btn btn-lg btn-info btn-block") }}
+
+        <hr />
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: space-around;
+          "
+        >
+          <a
+            style="margin-bottom: 8px"
+            class="btn btn-danger"
+            href="{{ url_for('auth.reset_password_request') }}"
+            role="button"
+            >Esqueci minha senha</a
+          >
+          <a class="btn btn-danger mt-3" href="{{ url_for('auth.register') }}" role="button"
+            >Criar conta</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

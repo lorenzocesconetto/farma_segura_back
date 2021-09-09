@@ -1,0 +1,12 @@
+{% extends "base.html" %} 
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block app_content %}
+  <div class="container py-5">
+    <div class="col-md-7 py-5" style="margin: 0 auto;">
+      <h2 class="mb-2">Criar conta</h2>
+      <p class="mb-3">É gratuito e sempre será :)</p>
+      {{ render_form(form, button_style='info') }}
+    </div>
+  </div>
+{% endblock app_content %}

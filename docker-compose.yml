@@ -1,0 +1,103 @@
+version: '3'
+
+services:
+
+  # Nginx Service
+  webserver:
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    ports:
+      # Public HTTP Port:
+      - '80:80'
+      # Public HTTPS Port:
+      - '443:443'
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    networks:
+      - app-network
+    depends_on:
+      - app
+    links:
+      - app
+
+  # Elasticsearch Service
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+  #   restart: always
+  #   container_name: elasticsearch
+  #   networks:
+  #     - app-network
+  #   environment:
+  #     - node.name=elasticsearch
+  #     - discovery.type=single-node
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #     nofile:
+  #       soft: 65536
+  #       hard: 65536
+  #   volumes:
+  #     - elasticsearch-data:/usr/share/elasticsearch/data
+  #   expose:
+  #     - "9200"
+
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:7.4.0
+  #   container_name: kibana
+  #   env_file: .env-kibana
+  #   ports:
+  #     - "5601:5601"
+  #   environment:
+  #     xpack.security.enabled: "true"
+  #     ELASTICSEARCH_URL: http://elasticsearch:9200
+  #     ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+  #     SERVER_HOST: 0.0.0.0
+  #     SERVER_PORT: 5601
+  #     XPACK_MONITORING_ENABLED: "true"
+  #     XPACK_MONITORING_COLLECTION_ENABLED: "true"
+  #     XPACK_SECURITY_ENABLED: "true"
+  #     ELASTICSEARCH_USERNAME: "kibana"
+  #     ELASTICSEARCH_PASSWORD: "kibanachangeme"
+  #   depends_on:
+  #     - elasticsearch
+  #   networks:
+  #     - app-network
+  
+  # Flask Application Service
+  app:
+    build: .
+    # ports:
+    #   - "5000:5000"
+    expose:
+      - "5000"
+    env_file: .env
+    networks:
+      - app-network
+    restart: always
+    depends_on:
+      - elasticsearch
+  
+  # Postgres Database Service
+  # postgres:
+  #   image: postgres:12-alpine
+  #   env_file: .env-postgres
+  #   restart: always
+  #   volumes:
+  #     - database-data:/var/lib/postgresql/data/
+  #   expose:
+  #     - "5432"
+  #   networks:
+  #     - app-network
+  
+volumes:
+  elasticsearch-data:
+    driver: local
+  # database-data:
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,31 @@
+#################################################################################
+# OPA, OPA!!!
+# Se voce esta vendo esse arquivo, temos oportunidades de emprego pra voce! :)
+#################################################################################
+
+User-agent: *
+
+Allow: /search?q=Tadalafila
+Allow: /search?q=Sildenafila
+Allow: /search?q=Viagra
+Allow: /search?q=Lipitor
+Allow: /search?q=Lexapro
+Allow: /search?q=Reconter
+Allow: /search?q=Escitalopram
+Allow: /search?q=Norvasc
+Allow: /search?q=Zoloft
+Allow: /search?q=Cozaar
+Allow: /search?q=Cymbalta
+Allow: /search?q=Pantoprazol
+Allow: /search?q=Azitromicina
+Allow: /search?q=Omeprazol
+Allow: /search?q=Levofloxacino
+Allow: /search?q=Fisiogel
+
+Disallow: /auth/*
+Disallow: /search*
+Disallow: /admin/*
+Disallow: /cart/*
+Disallow: /api/*
+Disallow: /completed_order/
+Disallow: /product/

@@ -1,0 +1,94 @@
+{{ bootstrap.load_css() }}
+
+<h2>Novo pedido</h2>
+
+<table class="table table-striped">
+  <tbody>
+    <thead>
+      <tr>
+        <th colspan="2" scope="col">Informações da entrega</th>
+      </tr>
+    </thead>
+    <tr>
+      <th scope="row">Nome</th>
+      <td>{{ order.user.name }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Logradouro</th>
+      <td>{{ order.user.logradouro }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Complemento</th>
+      <td>{{ order.user.complemento }}</td>
+    </tr>
+    <tr>
+      <th scope="row">CEP</th>
+      <td>{{ order.user.cep }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Municipio</th>
+      <td>{{ order.user.municipio }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Telefone</th>
+      <td>{{ order.user.phone }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Total</th>
+      <td>R$ {{ order.total }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Total cliente</th>
+      <td>R$ {{ order.frontend_total }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Taxa delivery</th>
+      <td>R$ {{ order.delivery_fee }}</td>
+    </tr>
+    <tr>
+      <th scope="row">Pagamento</th>
+      <td>{{ order.payment_method.name }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped">
+  <tbody>
+    <thead>
+      <tr>
+        <th scope="col">Produto</th>
+        <th scope="col">EAN</th>
+        <th scope="col">Quantidade</th>
+        <th scope="col">Valor unidade</th>
+        <th scope="col">Loja</th>
+      </tr>
+    </thead>
+    {% for order_item in order.order_items %}
+    <tr
+      style="cursor: pointer"
+      onclick="window.open('{{ order_item.item.url }}', '_blank');"
+    >
+      <td>
+        <a target="_blank" href="{{ order_item.item.url }}"
+          >{{ order_item.item.name }}</a
+        >
+      </td>
+      <td>
+        <a
+          target="_blank"
+          href="{{ url_for('main.detail', id=order_item.item.id, _external=True) }}"
+          >{{ order_item.item.ean }}</a
+        >
+      </td>
+      <td>{{ order_item.quantity }}</td>
+      <td>R$ {{ order_item.unit_price }}</td>
+      <td>{{ order_item.item.store.name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br /><br />
+
+<p>Abraços,</p>
+<p>Time BuscaMed.</p>

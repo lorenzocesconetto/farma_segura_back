@@ -1,0 +1,14 @@
+FROM nginx:alpine
+
+WORKDIR /home/buscamed
+
+RUN apk add --no-cache certbot
+
+COPY ./app/static app/static
+COPY ./boot-nginx.sh boot-nginx.sh
+RUN chmod +x boot-nginx.sh
+COPY ./nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY ./logs logs
+COPY certs/* /etc/letsencrypt/live/conf/
+
+ENTRYPOINT [ "./boot-nginx.sh" ]

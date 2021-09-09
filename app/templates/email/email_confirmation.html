@@ -1,0 +1,12 @@
+<p>Olá {{ user.name }},</p>
+<p>
+    Para confirmar seu email
+    <a href="{{ url_for('auth.email_confirmation', token=token, _external=True) }}">
+        clique aqui
+    </a>.
+</p>
+<p>Se preferir, você pode copiar o seguinte link no seu navegador:</p>
+<p>{{ url_for('auth.email_confirmation', token=token, _external=True) }}</p>
+<p>Se você não criou uma conta no BuscaMed, ignore essa mensagem.</p>
+<p>Abraços,</p>
+<p>Time BuscaMed</p>

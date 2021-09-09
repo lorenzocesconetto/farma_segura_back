@@ -1,0 +1,26 @@
+Novo pedido
+
+Pedido: {{ order.id }}
+Nome: {{ order.user.name }}
+Logradouro: {{ order.user.logradouro }}
+Complemento: {{ order.user.complemento }}
+CEP: {{ order.user.cep }}
+Municipio: {{ order.user.municipio }}
+Telefone: {{ order.user.phone }}
+Total: R$ {{ order.total }}
+Total cliente: R$ {{ order.frontend_total }}
+Taxa delivery: R$ {{ order.delivery_fee }}
+Meio pagamento: {{ order.payment_method.name }}
+
+
+{% for order_item in order.order_items %}
+  {{ order_item.item.url }}
+  {{ order_item.item.name }}
+  {{ order_item.item.ean }}
+  {{ order_item.quantity }}
+  R$ {{ order_item.unit_price }}
+  {{ order_item.item.store.name }}
+{% endfor %}
+        
+Abraços,
+Time BuscaMed.

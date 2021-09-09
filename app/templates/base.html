@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- END Global site tag (gtag.js) - Google Analytics -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='logo/b.png') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      crossorigin="anonymous"/>
+
+    {% block styles %} 
+    {{ bootstrap.load_css() }}
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='core/main.css') }}"
+    />
+    {% endblock styles %}
+
+    <title>
+      {% block title %} {% if title %}{{ title }} - Company{% else %}Bem-vindo
+      ao Company{% endif %}{% endblock title%}
+    </title>
+
+    {% endblock head %}
+  </head>
+
+  <body>
+    {% block navbar %}
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-white">
+      <a class="navbar-brand" href="{{ url_for('core.index') }}">
+        <img
+          src="{{ url_for('static', filename='logo/logo.png') }}"
+          alt="company logo"
+          height="28"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+
+        <a class="nav-link text-secondary"
+          href="#"
+          tabindex="-1"
+          target="_blank">Link</a>
+
+        {% if current_user.is_authenticated %}
+        <a class="nav-link text-secondary"
+          href="{{ url_for('auth.edit_profile') }}"
+          tabindex="-1">Editar perfil</a>
+
+        <a class="nav-link text-secondary"
+          href="{{ url_for('auth.logout') }}"
+          tabindex="-1"
+        >Sair</a>
+        {% else %}
+
+        <a class="nav-link text-secondary"
+          href="{{ url_for('auth.login') }}"
+          tabindex="-1"
+        >Entrar</a>
+
+        <a class="nav-link text-secondary"
+          href="{{ url_for('auth.register') }}"
+          tabindex="-1"
+          >Criar conta grátis</a>
+        {% endif %}
+        
+        <a class="btn btn-info btn-sm ml-3" href="{{ url_for('core.index') }}">
+          <i class="fa fa-shopping-cart"></i> Carrinho</a>
+      </div>
+    </nav>
+    {% endblock navbar %} 
+
+    {% block content %}
+    <div style="min-height: 100vh" class="album">
+      <div class="container pt-5">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %} 
+            {% for message in messages %}
+              <div class="alert alert-info pt-5 mt-5" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+      
+      {% block app_content %}
+      {% endblock app_content %}
+      
+      {% block footer %}
+      <!-- Footer -->
+      <footer class="text-light">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-6">
+              <h5>Sobre</h5>
+              <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />
+              <p class="mb-0">
+                Feito com &#9825; pela equipe Company.
+              </p>
+            </div>
+
+            <div class="col-md-5 col-lg-5 col-xl-5">
+              <h5>Contato</h5>
+              <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25" />
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fa fa-home mr-2"></i>Endereço
+                </li>
+                {#
+                <li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
+                #}
+                <li><i class="fa fa-phone mr-2"></i>phone_number</li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://www.instagram.com/company/"
+                    ><i class="fa fa-instagram"></i>Siga-nos no instagram</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      {% endblock footer %}
+    </div>
+    {% endblock content %} 
+    
+    {% block scripts %}
+      {{ bootstrap.load_js() }}
+    {% endblock scripts %}
+  </body>
+</html>

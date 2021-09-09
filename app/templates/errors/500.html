@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block app_content %}
+<div class="pt-5 mt-5 container" style="height: 100vh">
+  <h1>Um erro inesperado ocorreu</h1>
+  <p>Já notificamos o administrador. Desculpe pelo inconveniente!</p>
+  <p>
+    <a class="btn btn-info" href="{{ url_for('core.index') }}"
+      >Página principal</a
+    >
+  </p>
+</div>
+{% endblock %}

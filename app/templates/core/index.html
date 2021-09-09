@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% from 'bootstrap/form.html' import render_form, render_form_row, render_field, render_hidden_errors %}
+
+{% block styles %}
+  {{ super() }}
+{% endblock styles %}
+
+{% block app_content %}
+<div class="container pt-3 pb-4" style="min-height: 70vh;">
+  <div class="search text-center mb-5">
+    <h1 class="text-dark h1-responsive text-center col-lg-8 col-md-12 col-sm-12 pb-2 mx-auto">
+      <strong>Landing page</strong>
+    </h1>
+    <h5 id="subtitle" class="text-dark h5-responsive mt-2 mb-5">Subtitle</h5>
+  </div>
+  <div>
+    <div class="text-center">
+        <h4 class="text-secondary mt-4 mb-4">Section</h4>
+    </div>
+  </div>
+</div>
+{% endblock app_content %}
